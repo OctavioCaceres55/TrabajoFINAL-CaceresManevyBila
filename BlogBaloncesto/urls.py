@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from BlogBaloncesto.views import saludar_con_html, saludar_con_html_1
-from Basquet1.views import listar_jugadores
+from Basquet1.views import listar_jugadores, listar_entrenadores
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo-html/', saludar_con_html),
     path('saludo-html-base/', saludar_con_html_1),
     path('BlogBasquet/jugadores/', listar_jugadores),
+    path('BlogBasquet/entrenadores/', listar_entrenadores),
+    
 ]

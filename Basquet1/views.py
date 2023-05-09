@@ -14,3 +14,19 @@ def listar_jugadores(request):
         context= contexto 
     )
     return http_response
+
+def listar_entrenadores(request):
+    contexto = {
+         "entrenadores": [
+            {"nombre" : "Julio", "apellido" : "Lamas"},
+            {"nombre" : "Gregg", "apellido" : "Poppovich"},
+            {"nombre" : "Marcelo", "apellido" : "Cirillo"},
+        ]
+    }
+    http_response = render(
+        request=request,
+        template_name='Basquet1/lista_entrenadores.html',
+        context= contexto 
+    )
+    return http_response
+

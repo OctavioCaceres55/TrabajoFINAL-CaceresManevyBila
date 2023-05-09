@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from datetime import datetime
 
 def saludar_con_html(request):
-    contexto = {} 
+    contexto = {
+        "Jugador": "Facundo Campazzo",
+    } 
     http_response = render(
         request=request,
         template_name='Basquet1/basquet.html',
@@ -18,3 +20,5 @@ def saludar_con_html_1(request):
         context=contexto 
     )
     return http_response
+
+

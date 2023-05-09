@@ -1,0 +1,14 @@
+{% extends 'Basquet1/basquet.html' %}
+
+{% block contenido %}
+<section>
+    <div>
+        <h1>Lista de jugadores</h1>
+        <ul>
+        {% for player in jugadores %}
+         <li> {{player.apellido}}, {{player.nombre}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock contenido %} 

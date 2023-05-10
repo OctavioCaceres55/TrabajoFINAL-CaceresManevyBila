@@ -29,4 +29,19 @@ def listar_entrenadores(request):
         context= contexto 
     )
     return http_response
+def listar_clubes(request):
+    contexto = {
+         "clubes": [
+            {"nombre" : "Club Atlético Platense", "ciudad" : "Lamas"},
+            {"nombre" : "Club Atlético Obras Sanitarias de la Nacion", "ciudad" : "Poppovich"},
+            {"nombre" : "Gimnasia y Esgrima", "ciudad" : "Comodoro Rivadavia"},
+        ]
+    }
+    http_response = render(
+        request=request,
+        template_name='Basquet1/lista_clubes.html',
+        context= contexto 
+    )
+    return http_response
+
 

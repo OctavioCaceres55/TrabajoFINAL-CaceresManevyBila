@@ -24,5 +24,5 @@ urlpatterns = [
     path('saludo-html/', saludar_con_html),
     path('saludo-html-base/', saludar_con_html_1),
     path('BlogBasquet/', include('Basquet1.urls')), 
-    path('', inicio),
+    path('', inicio, name="inicio"),
 ]

@@ -1,3 +1,8 @@
 from django.contrib import admin
+from Basquet1.models import Entrenadores, Jugadores, Clubes
 
-# Register your models here.
+admin.site.register(Clubes)
+admin.site.register(Entrenadores)
+admin.site.register(Jugadores)
+
+

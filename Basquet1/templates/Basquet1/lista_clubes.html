@@ -1,0 +1,14 @@
+{% extends 'Basquet1/base.html' %}
+
+{% block contenido %}
+<section>
+    <div>
+        <h1>Lista de clubes</h1>
+        <ul>
+        {% for club in clubes %}
+         <li> {{club.ciudad}}, {{club.nombre}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock contenido %} 

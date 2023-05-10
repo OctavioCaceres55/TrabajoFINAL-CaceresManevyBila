@@ -1,13 +1,10 @@
 from django.shortcuts import render
-
+from Basquet1.models import Entrenadores, Clubes, Jugadores
 def listar_jugadores(request):
     contexto = {
-         "jugadores": [
-            {"nombre" : "Facundo", "apellido" : "Campazzo"},
-            {"nombre" : "Luca", "apellido" : "Vildoza"},
-            {"nombre" : "Felipe", "apellido" : "Pais"},
-        ]
+         "jugadores": Jugadores.objects.all(),
     }
+
     http_response = render(
         request=request,
         template_name='Basquet1/lista_jugadores.html',
@@ -17,11 +14,7 @@ def listar_jugadores(request):
 
 def listar_entrenadores(request):
     contexto = {
-         "entrenadores": [
-            {"nombre" : "Julio", "apellido" : "Lamas"},
-            {"nombre" : "Gregg", "apellido" : "Poppovich"},
-            {"nombre" : "Marcelo", "apellido" : "Cirillo"},
-        ]
+         "entrenadores": Entrenadores.objects.all(),
     }
     http_response = render(
         request=request,
@@ -31,11 +24,7 @@ def listar_entrenadores(request):
     return http_response
 def listar_clubes(request):
     contexto = {
-         "clubes": [
-            {"nombre" : "Club Atlético Platense", "ciudad" : "Lamas"},
-            {"nombre" : "Club Atlético Obras Sanitarias de la Nacion", "ciudad" : "Poppovich"},
-            {"nombre" : "Gimnasia y Esgrima", "ciudad" : "Comodoro Rivadavia"},
-        ]
+         "clubes": Clubes.objects.all(),
     }
     http_response = render(
         request=request,

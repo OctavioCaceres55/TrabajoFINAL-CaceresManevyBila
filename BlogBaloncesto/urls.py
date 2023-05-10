@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from BlogBaloncesto.views import saludar_con_html, saludar_con_html_1
+from BlogBaloncesto.views import saludar_con_html, saludar_con_html_1, inicio
 from Basquet1.views import listar_jugadores, listar_entrenadores
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
     path('saludo-html/', saludar_con_html),
     path('saludo-html-base/', saludar_con_html_1),
     path('BlogBasquet/', include('Basquet1.urls')), 
+    path('', inicio),
 ]

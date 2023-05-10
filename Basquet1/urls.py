@@ -22,3 +22,4 @@ urlpatterns = [
     path('jugadores/', listar_jugadores),
     path('entrenadores/', listar_entrenadores),
 ]
+

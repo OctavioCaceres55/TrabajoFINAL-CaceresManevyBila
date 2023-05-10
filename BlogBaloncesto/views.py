@@ -21,4 +21,13 @@ def saludar_con_html_1(request):
     )
     return http_response
 
+def inicio(request): 
+    contexto = {}
+    http_response = render(
+        request=request,
+        template_name='Basquet1/index.html',
+        context= contexto 
+    )
+    return http_response
+
 

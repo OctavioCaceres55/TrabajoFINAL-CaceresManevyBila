@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Basquet1.views import listar_jugadores, listar_entrenadores, listar_clubes, cargar_club
+from Basquet1.views import listar_jugadores, listar_entrenadores, listar_clubes, cargar_club, cargar_entrenador
 
 urlpatterns = [
     path('jugadores/', listar_jugadores, name="jugadores"),
     path('entrenadores/', listar_entrenadores, name="entrenadores"),
     path('clubes/', listar_clubes, name="clubes"),
     path('cargar-club/', cargar_club, name="cargar-club"),
+    path('cargar-entrenador/', cargar_entrenador, name='cargar-entrenador')
+
 ]
 

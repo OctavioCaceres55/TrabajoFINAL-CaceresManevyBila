@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from Basquet1.models import Entrenadores, Clubes, Jugadores
+from Basquet1.forms import EntrenadoresFormulario
 def listar_jugadores(request):
     contexto = {
          "jugadores": Jugadores.objects.all(),
@@ -52,3 +53,26 @@ def cargar_club(request):
     return http_response
 
 
+def cargar_entrenador(request):
+    if request.method == "POST":
+        formulario = EntrenadoresFormulario(request.POST)
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            nombre = data["nombre"]
+            apellido =data["apellido"]
+            lugar_de_nacimiento = data["lugar_de_nacimiento"]
+            fecha_de_nacimiento = data["fecha_de_nacimiento"]
+            trayectoria = data["trayectoria"]
+            entrenador = Entrenadores(nombre=nombre, apellido=apellido, lugar_de_nacimiento=lugar_de_nacimiento, fecha_de_nacimiento=fecha_de_nacimiento,trayectoria=trayectoria)
+            entrenador.save()        
+            url_exitosa = reverse('entrenadores')
+            return redirect(url_exitosa)
+              
+    else: 
+        formulario = EntrenadoresFormulario()    
+    http_response = render(
+        request=request,
+        template_name='Basquet1/formulario_basquet.html',
+        context={'formulario': formulario},
+    )
+    return http_response

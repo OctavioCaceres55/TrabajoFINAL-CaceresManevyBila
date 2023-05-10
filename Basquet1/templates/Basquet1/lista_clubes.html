@@ -4,6 +4,7 @@
 <section>
     <div>
         <h1>Lista de clubes</h1>
+        <a href="{% url 'cargar-club' %}"> Cargar Club</a>
         <ul>
         {% for club in clubes %}
          <li> {{club.ciudad}}, {{club.nombre}}</li>

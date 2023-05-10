@@ -1,0 +1,13 @@
+{% extends 'Basquet1/base.html' %}
+
+{% block contenido %}
+<form action="{% url 'cargar-club' %}" method="post">
+    {% csrf_token %}
+    <p> Nombre del Club</p>
+    <input type="text" name ="nombre">
+    <p> Fecha de fundacion</p>
+    <input type="date" name ="fecha de fundacion">
+    <input type="submit" value="Cargar">
+
+</form>
+{% endblock contenido %}

@@ -33,4 +33,13 @@ def listar_clubes(request):
     )
     return http_response
 
+def crear_club(request):
+    contexto = {}
+    http_response = render(
+        request=request,
+        template_name='Basquet1/formulario_basquet_1.html',
+        context= contexto 
+    )
+    return http_response
+
 

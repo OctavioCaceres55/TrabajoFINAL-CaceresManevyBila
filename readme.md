@@ -1,4 +1,6 @@
-# ProyectoCoder
+# Proyecto BaloncestoBlog
+## Este proyecto tiene como fin darle al usuario la posibilidad de cargar y buscar a sus jugadores de baloncesto preferidos , junto a clubes y entrenadores más reconocidos del país.
+
 
 ## Instrucciones instalar proyecto en local
 + Crea una carpeta contenedora madre

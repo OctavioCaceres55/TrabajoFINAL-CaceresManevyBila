@@ -12,5 +12,7 @@ class JugadoresFormularios(forms.Form):
     apellido = forms.CharField(max_length=64, required=True)
     numero_camiseta = forms.IntegerField()
     lugar_de_nacimiento = forms.CharField(max_length=256, required=True)
-    fecha_de_nacimiento = forms.DateField()    
+    fecha_de_nacimiento = forms.DateField() 
+    esta_habilitado = forms.BooleanField(required=True)
+
     

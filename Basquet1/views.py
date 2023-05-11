@@ -105,7 +105,8 @@ def cargar_jugador(request):
             lugar_de_nacimiento = data["lugar_de_nacimiento"]
             fecha_de_nacimiento = data["fecha_de_nacimiento"]
             numero_camiseta=data["numero_camiseta"]
-            jugador = Jugadores(nombre=nombre, apellido=apellido, lugar_de_nacimiento=lugar_de_nacimiento, fecha_de_nacimiento=fecha_de_nacimiento,numero_camiseta=numero_camiseta)
+            esta_habilitado = data["esta_habilitado"]
+            jugador = Jugadores(nombre=nombre, apellido=apellido, lugar_de_nacimiento=lugar_de_nacimiento, fecha_de_nacimiento=fecha_de_nacimiento,numero_camiseta=numero_camiseta, esta_habilitado=esta_habilitado)
             jugador.save()        
             url_exitosa = reverse('jugadores')
             return redirect(url_exitosa)

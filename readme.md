@@ -1,5 +1,5 @@
 # Proyecto BaloncestoBlog
-## Este proyecto tiene como fin darle al usuario la posibilidad de cargar y buscar a sus jugadores de baloncesto preferidos , junto a clubes y entrenadores más reconocidos del país.
+## Este proyecto tiene como fin darle al usuario la posibilidad de cargar y buscar a sus jugadores de baloncesto preferidos , junto a clubes y entrenadores más reconocidos del país y del mundo.
 
 
 ## Instrucciones instalar proyecto en local
@@ -14,7 +14,7 @@
 pip install -r requirements.txt
 ```
 
-## Instrucciones para entrar al panel aministrativo de Django
+## Instrucciones para entrar al panel administrativo de Django
 + En consola, crear un superuser:
 ```
 python manage.py createsuperuser

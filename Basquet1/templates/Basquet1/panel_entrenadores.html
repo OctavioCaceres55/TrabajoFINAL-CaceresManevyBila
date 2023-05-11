@@ -1,13 +1,18 @@
 {% extends 'Basquet1/base.html' %}
 
 {% block contenido %}
-<section>
+<section><section style="font-size: large">
     <div>
         <h1>Panel de entrenadores</h1>
+        <p style="font-size: x-large" class="text-success">¿Desea agregar un nuevo entrenador? Haga click aquí debajo</p>
         <a href="{% url 'cargar-entrenador' %}"> Cargar Entrenador</a>
+        <br><br>
+        <br><br>
+        <h1>Lista de entrenadores</h1>
         <ul>
         {% for coach in entrenadores %}
-         <li> {{coach.apellido}}, {{coach.nombre}}</li>
+         <li> Presentando a: {{coach.apellido}}, {{coach.nombre}}. Oriundo de: {{coach.lugar_de_nacimiento}}. Nacio el: {{coach.fecha_de_nacimiento}}
+        // Biografia: {{coach.trayectoria}} <br></br> </li>
         {% endfor %}
         </ul>
     </div>

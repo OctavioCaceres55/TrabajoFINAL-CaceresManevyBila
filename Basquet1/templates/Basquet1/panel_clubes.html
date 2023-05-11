@@ -1,9 +1,10 @@
 {% extends 'Basquet1/base.html' %}
 
 {% block contenido %}
-<section>
+<section style="font-size: large">
     <div>
-        <h1>Lista de clubes</h1>
+        <h1>Panel de clubes</h1>
+        <p style="font-size: x-large" class="text-primarys">¿Desea agregar un nuevo club? Haga click aquí debajo</p>
         <a href="{% url 'cargar-club' %}"> Cargar Club</a>
         <br><br>
         <form action="{% url 'buscar-clubes' %}" method="post">
@@ -14,7 +15,7 @@
         <br>
         <ul>
         {% for club in clubes %}
-         <li> {{club.nombre}}</li>
+         <li> "Nombre: {{club.nombre}} --/ Juega en: {{club.categoria_juego}}. --/ Se fundó el: {{club.fecha_fundacion}}.</li>
         {% endfor %}
         </ul>
     </div>

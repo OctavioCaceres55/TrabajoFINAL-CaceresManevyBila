@@ -27,6 +27,7 @@ class Clubes(models.Model):
     fecha_fundacion = models.DateField()
     categoria_juego = models.CharField(max_length=256)
     
+    
     def __str__(self):
         return f"{self.nombre}"
     

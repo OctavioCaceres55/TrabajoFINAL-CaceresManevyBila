@@ -4,6 +4,7 @@
 <section>
     <div>
         <h1>Lista de jugadores</h1>
+        <a href="{% url 'cargar-jugador' %}"> Cargar Jugador</a>
         <ul>
         {% for player in jugadores %}
          <li> {{player.apellido}}, {{player.nombre}}</li>

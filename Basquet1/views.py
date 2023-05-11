@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from Basquet1.models import Entrenadores, Clubes, Jugadores
-from Basquet1.forms import EntrenadoresFormulario
+from Basquet1.forms import EntrenadoresFormulario, JugadoresFormularios
 def listar_jugadores(request):
     contexto = {
          "jugadores": Jugadores.objects.all(),
@@ -9,7 +9,7 @@ def listar_jugadores(request):
 
     http_response = render(
         request=request,
-        template_name='Basquet1/lista_jugadores.html',
+        template_name='Basquet1/panel_jugadores.html',
         context= contexto 
     )
     return http_response
@@ -20,7 +20,7 @@ def listar_entrenadores(request):
     }
     http_response = render(
         request=request,
-        template_name='Basquet1/lista_entrenadores.html',
+        template_name='Basquet1/panel_entrenadores.html',
         context= contexto 
     )
     return http_response
@@ -30,7 +30,7 @@ def listar_clubes(request):
     }
     http_response = render(
         request=request,
-        template_name='Basquet1/lista_clubes.html',
+        template_name='Basquet1/panel_clubes.html',
         context= contexto 
     )
     return http_response
@@ -48,7 +48,7 @@ def cargar_club(request):
     else: 
         http_response = render(
         request=request,
-        template_name='Basquet1/formulario_basquet_1.html',
+        template_name='Basquet1/formulario_clubes.html',
     )
     return http_response
 
@@ -72,7 +72,49 @@ def cargar_entrenador(request):
         formulario = EntrenadoresFormulario()    
     http_response = render(
         request=request,
-        template_name='Basquet1/formulario_basquet.html',
+        template_name='Basquet1/formulario_entrenadores.html',
+        context={'formulario': formulario},
+    )
+    return http_response
+
+def buscar_clubes(request):
+    if request.method == "POST":
+        data = request.POST
+        busqueda = data["busqueda"]
+        print(f"Usted buscó {busqueda}")
+        print(busqueda)
+        clubes = Clubes.objects.filter(categoria_juego=busqueda)
+        contexto = {
+            "clubes": clubes
+        }
+
+    http_response = render(
+        request=request,
+        template_name='Basquet1/panel_clubes.html',
+        context= contexto 
+    )
+    return http_response
+
+def cargar_jugador(request):
+    if request.method == "POST":
+        formulario = JugadoresFormularios(request.POST)
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            nombre = data["nombre"]
+            apellido =data["apellido"]
+            lugar_de_nacimiento = data["lugar_de_nacimiento"]
+            fecha_de_nacimiento = data["fecha_de_nacimiento"]
+            numero_camiseta=data["numero_camiseta"]
+            jugador = Jugadores(nombre=nombre, apellido=apellido, lugar_de_nacimiento=lugar_de_nacimiento, fecha_de_nacimiento=fecha_de_nacimiento,numero_camiseta=numero_camiseta)
+            jugador.save()        
+            url_exitosa = reverse('jugadores')
+            return redirect(url_exitosa)
+              
+    else: 
+        formulario = JugadoresFormularios()    
+    http_response = render(
+        request=request,
+        template_name='Basquet1/formulario_jugadores.html',
         context={'formulario': formulario},
     )
     return http_response

@@ -7,15 +7,16 @@
         <p style="font-size: x-large" class="text-primarys">¿Desea agregar un nuevo club? Haga click aquí debajo</p>
         <a href="{% url 'cargar-club' %}"> Cargar Club</a>
         <br><br>
+        <p style="font-size: large" class="text-success">¿Desea filtrar un club? Búsquelo aquí</p>
         <form action="{% url 'buscar-clubes' %}" method="post">
             {% csrf_token %}
             <input type="text" name='busqueda'>
-            <input type="submit" value="Buscar Club por categoria">
+            <input type="submit" value="Buscar Club por categoria: Liga Nacional, Liga Argentina o Torneo Federal">
         </form>
         <br>
         <ul>
         {% for club in clubes %}
-         <li> "Nombre: {{club.nombre}} --/ Juega en: {{club.categoria_juego}}. --/ Se fundó el: {{club.fecha_fundacion}}.</li>
+         <li> "Nombre: {{club.nombre}} --/ Categoria: {{club.categoria_juego}}. --/ Se fundó el: {{club.fecha_fundacion}}.</li>
         {% endfor %}
         </ul>
     </div>

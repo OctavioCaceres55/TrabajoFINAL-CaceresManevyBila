@@ -7,7 +7,13 @@
         <p style="font-size: x-large" class="text-success">¿Desea agregar un nuevo jugador? Haga click aquí debajo</p>
         <a href="{% url 'cargar-jugador' %}"> Cargar Jugador</a>
         <br></br>
-        <ul>
+        <p style="font-size: large" class="text-success">¿Desea filtrar un jugador? Búsquelo aquí</p>
+        <form action="{% url 'buscar-jugadores' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name='nombre'>
+            <input type="submit" value="Buscar Jugador por su nombre">
+        </form>
+        <br></br>
         <h1>Lista de jugadores </h1>
         {% for player in jugadores %}
          <li> Jugador: {{player.apellido}}, {{player.nombre}}. --/ Oriundo de: {{player.lugar_de_nacimiento}}. --/ Nacido el: {{player.fecha_de_nacimiento}}.</li>

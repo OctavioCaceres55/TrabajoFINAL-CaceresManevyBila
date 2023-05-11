@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Basquet1.views import listar_jugadores, listar_entrenadores, listar_clubes, cargar_club, cargar_entrenador, buscar_clubes, cargar_jugador
+from Basquet1.views import listar_jugadores, listar_entrenadores, listar_clubes, cargar_club, cargar_entrenador, buscar_clubes, cargar_jugador, buscar_entrenadores, buscar_jugadores
 
 urlpatterns = [
     path('jugadores/', listar_jugadores, name="jugadores"),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('cargar-entrenador/', cargar_entrenador, name='cargar-entrenador'),
     path('buscar-clubes/', buscar_clubes, name='buscar-clubes'),
     path('cargar-jugador/', cargar_jugador, name='cargar-jugador'),
-    ]
+    path('buscar-entrenadores/', buscar_entrenadores, name='buscar-entrenadores'),
+    path('buscar-jugadores/', buscar_jugadores, name='buscar-jugadores'),
+]
 

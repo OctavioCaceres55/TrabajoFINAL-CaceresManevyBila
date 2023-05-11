@@ -119,3 +119,38 @@ def cargar_jugador(request):
         context={'formulario': formulario},
     )
     return http_response
+
+def buscar_entrenadores(request):
+    if request.method == "POST":
+        data = request.POST
+        apellido = data["apellido"]
+        print(f"Usted buscó {apellido}")
+        entrenador = Entrenadores.objects.filter(apellido=apellido)
+        contexto = {
+            "entrenador": entrenador
+        }
+
+    http_response = render(
+        request=request,
+        template_name='Basquet1/panel_entrenadores.html',
+        context= contexto 
+    )
+    return http_response
+
+def buscar_jugadores(request):
+    if request.method == "POST":
+        data = request.POST
+        nombre = data["nombre"]
+        print(f"Usted buscó {nombre}")
+        jugador = Jugadores.objects.filter(nombre=nombre)
+        contexto = {
+            "jugador": jugador
+        }
+
+    http_response = render(
+        request=request,
+        template_name='Basquet1/panel_jugadores.html',
+        context= contexto 
+    )
+    return http_response
+

@@ -10,7 +10,7 @@
         <p style="font-size: large" class="text-success">¿Desea filtrar un jugador? Búsquelo aquí</p>
         <form action="{% url 'buscar-jugadores' %}" method="post">
             {% csrf_token %}
-            <input type="text" name='busqueda'>
+            <input type="text" name="busqueda">
             <input type="submit" value="Buscar Jugador por su nombre">
         </form>
         <br></br>

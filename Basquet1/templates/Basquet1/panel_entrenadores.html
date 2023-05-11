@@ -8,7 +8,6 @@
         <a href="{% url 'cargar-entrenador' %}"> Cargar Entrenador</a>
         <br><br>
         <p style="font-size: large" class="text-success">¿Desea filtrar un entrenador? Búsquelo aquí</p>
-
         <form action="{% url 'buscar-entrenadores' %}" method="post">
             {% csrf_token %}
             <input type="text" name='busqueda'>

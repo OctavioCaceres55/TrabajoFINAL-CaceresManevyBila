@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from Basquet1.models import Entrenadores, Clubes, Jugadores
 from Basquet1.forms import EntrenadoresFormulario, JugadoresFormularios
+
 def listar_jugadores(request):
     contexto = {
          "jugadores": Jugadores.objects.all(),
@@ -91,11 +92,11 @@ def buscar_clubes(request):
     http_response = render(
         request=request,
         template_name='Basquet1/panel_clubes.html',
-        context= contexto 
+        context= contexto,
     )
     return http_response
 
-def cargar_jugador(request):
+def cargar_jugador(request): 
     if request.method == "POST":
         formulario = JugadoresFormularios(request.POST)
         if formulario.is_valid():
@@ -125,26 +126,28 @@ def buscar_entrenadores(request):
         data = request.POST
         busqueda = data["busqueda"]
         print(f"Usted buscó {busqueda}")
-        entrenador = Entrenadores.objects.filter(apellido__contains=busqueda)
+        entrenadores = Entrenadores.objects.filter(apellido__contains=busqueda)
         contexto = {
-            "entrenador": entrenador
-        }
-
+            "entrenadores": entrenadores
+    }
+        
     http_response = render(
         request=request,
         template_name='Basquet1/panel_entrenadores.html',
-        context= contexto 
+        context= contexto,
     )
     return http_response
+
+
 
 def buscar_jugadores(request):
     if request.method == "POST":
         data = request.POST
         busqueda = data["busqueda"]
         print(f"Usted buscó {busqueda}")
-        jugador = Jugadores.objects.filter(nombre__contains=busqueda)
+        jugadores = Jugadores.objects.filter(nombre=busqueda)
         contexto = {
-            "jugador": jugador
+            "jugadores": jugadores
         }
 
     http_response = render(

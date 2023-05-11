@@ -123,9 +123,9 @@ def cargar_jugador(request):
 def buscar_entrenadores(request):
     if request.method == "POST":
         data = request.POST
-        apellido = data["apellido"]
-        print(f"Usted buscó {apellido}")
-        entrenador = Entrenadores.objects.filter(apellido=apellido)
+        busqueda = data["busqueda"]
+        print(f"Usted buscó {busqueda}")
+        entrenador = Entrenadores.objects.filter(apellido__contains=busqueda)
         contexto = {
             "entrenador": entrenador
         }
@@ -140,9 +140,9 @@ def buscar_entrenadores(request):
 def buscar_jugadores(request):
     if request.method == "POST":
         data = request.POST
-        nombre = data["nombre"]
-        print(f"Usted buscó {nombre}")
-        jugador = Jugadores.objects.filter(nombre=nombre)
+        busqueda = data["busqueda"]
+        print(f"Usted buscó {busqueda}")
+        jugador = Jugadores.objects.filter(nombre__contains=busqueda)
         contexto = {
             "jugador": jugador
         }

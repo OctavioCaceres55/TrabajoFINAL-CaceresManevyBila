@@ -2,7 +2,12 @@
 
 {% block contenido %}
 <section style="font-size: xx-large">
-<hi> Bienvenidos al Blog hispanohablante de baloncesto más completo del mundo. </hi>
+<hi> Bienvenido al Blog hispanohablante de baloncesto más completo del mundo {{user.first_name}} </hi>
+
+<div>
+    
+</div>
+<img src="{{ user.avatar.imagen.url }}" />
 </section>
 
 

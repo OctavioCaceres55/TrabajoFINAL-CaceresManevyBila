@@ -1,7 +1,7 @@
 {% extends 'Basquet1/base.html' %}
 
 {% block contenido %}
-<form action="{% url 'cargar-jugador' %}" method="post">
+<form method="post">
     {% csrf_token %}
     {{ formulario.as_p }}
     {{formulario.errors }}

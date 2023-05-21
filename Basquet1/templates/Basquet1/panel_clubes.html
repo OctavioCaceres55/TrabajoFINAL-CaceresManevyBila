@@ -4,7 +4,7 @@
 <section style="font-size: large">
     <div>
         <h1>Panel de clubes</h1>
-        <p style="font-size: x-large" class="text-primarys">¿Desea agregar un nuevo club? Haga click aquí debajo</p>
+        <p style="font-size: x-large" class="text-success">¿Desea agregar un nuevo club? Haga click aquí debajo</p>
         <a href="{% url 'cargar-club' %}"> Cargar Club</a>
         <br><br>
         <p style="font-size: large" class="text-success">¿Desea filtrar un club? Búsquelo aquí</p>
@@ -14,11 +14,33 @@
             <input type="submit" value="Buscar Club por categoria: Liga Nacional, Liga Argentina o Torneo Federal">
         </form>
         <br>
-        <ul>
-        {% for club in clubes %}
-         <li> "Nombre: {{club.nombre}} --/ Categoria: {{club.categoria_juego}}. --/ Se fundó el: {{club.fecha_fundacion}}.</li>
-        {% endfor %}
-        </ul>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th> ID </th>
+                    <th> Nombre del club </th>
+                    <th> Categoria </th>
+                    <th> Fecha de fundacion</th>
+                    <th> Eliminar</th>
+                </tr>
+                {% for club in clubes %}
+                <tr>
+                    <td> {{club.id}}</td>
+                    <td> {{club.nombre}}</td>
+                    <td> {{club.categoria_juego}}</td>
+                    <td> {{club.fecha_fundacion}}</td>
+                <td>
+                {% if user == club.creador %}
+                <form action="{% url 'eliminar_club' club.id %}" method="post">
+                      {% csrf_token %}
+                      <input type="submit" value="Eliminar"/>
+                    </form>
+                </td>
+                {% endif %}
+                {% endfor %}
+
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock contenido %} 

@@ -4,24 +4,37 @@
 <section>
     <div>
         <h1>Panel de jugadores</h1>
-        <p style="font-size: x-large" class="text-success">¿Desea agregar un nuevo jugador? Haga click aquí debajo</p>
-        <a href="{% url 'cargar-jugador' %}"> Cargar Jugador</a>
-        <br></br>
-        <p style="font-size: large" class="text-success">¿Desea filtrar un jugador? Búsquelo aquí</p>
-        <form action="{% url 'buscar-jugadores' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="busqueda">
-            <input type="submit" value="Buscar Jugador por su nombre">
-        </form>
-        <br></br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th> ID </th>
+                    <th> Nombre </th>
+                    <th> Apellido</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% for jugador in object_list %}
+                <tr>
+                    <td> {{jugador.id}}</td>
+                    <td> {{jugador.nombre}}</td>
+                    <td> {{jugador.apellido}}
+                    </td>
+                    <td>
+                       <a href="{% url 'editar_jugadores' jugador.id %}">Editar</a>    
+                    </td>   
+                    <td>
+                        <a href="{% url 'eliminar_jugadores' jugador.id %}">
+                          <i class="bi bi-trash"></i>
+                        </a>  
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         
-        <h1>Lista de jugadores </h1>
-        <p style="font-size: x-large"></p>
-        {% for player in jugadores %}
-         <li> Jugador: {{player.apellido}}, {{player.nombre}}. --/ Oriundo de: {{player.lugar_de_nacimiento}}. --/ Nacido el: {{player.fecha_de_nacimiento}}.</li>
-        <li> ¿Puede jugar?  {{player.esta_habilitado}}</li>
-         {% endfor %}
-        </ul>
     </div>
 </section>
 {% endblock contenido %} 
+
+

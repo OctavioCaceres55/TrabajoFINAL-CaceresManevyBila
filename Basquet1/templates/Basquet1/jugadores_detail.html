@@ -1,0 +1,24 @@
+{% extends "Basquet1/base.html" %}
+
+{% block contenido %}
+
+<p>
+ <strong>Apellido:</strong> {{object.apellido}}
+</p>
+<p>
+ <strong>Nombre:</strong> {{object.nombre}}
+</p>
+<p>
+ <strong>Lugar de nacimiento:</strong> {{object.lugar_de_nacimiento}}
+</p>
+<p>
+ <strong>Fecha de nacimiento:</strong> {{object.fecha_de_nacimiento}}
+</p>
+<p>
+ <strong>Esta habilitado:</strong> {{object.esta_habilitado}}
+</p>
+
+<br>
+<a href="{% url 'listar_jugadores' %}">Volver</a>
+
+{% endblock contenido %}

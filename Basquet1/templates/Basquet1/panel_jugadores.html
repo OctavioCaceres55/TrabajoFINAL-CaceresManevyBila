@@ -4,12 +4,19 @@
 <section>
     <div>
         <h1>Panel de jugadores</h1>
+        <form method="get" action="{% url 'listar_jugadores' %}">
+            <input type="text" name="search_query" placeholder="Buscar Jugadores">
+            <button type="submit">Buscar jugadores</button>
+        </form>
         <table class="table">
             <tbody>
                 <tr>
                     <th> ID </th>
                     <th> Nombre </th>
                     <th> Apellido</th>
+                    <th> Editar</th>
+                    <th> Ver</th>
+                    
                     <td></td>
                     <td></td>
                     <td></td>
@@ -18,11 +25,13 @@
                 <tr>
                     <td> {{jugador.id}}</td>
                     <td> {{jugador.nombre}}</td>
-                    <td> {{jugador.apellido}}
-                    </td>
+                    <td> {{jugador.apellido}}</td>
                     <td>
-                       <a href="{% url 'editar_jugadores' jugador.id %}">Editar</a>    
-                    </td>   
+                       <a href="{% url 'editar_jugadores' jugador.id %}">Aquí</a>    
+                    </td> 
+                    <td>
+                        <a href="{% url 'ver_jugadores' jugador.id %}">Ver</a>    
+                     </td> 
                     <td>
                         <a href="{% url 'eliminar_jugadores' jugador.id %}">
                           <i class="bi bi-trash"></i>

@@ -26,6 +26,6 @@ urlpatterns = [
     path('saludo-html-base/', saludar_con_html_1),
     path('BlogBasquet/', include('Basquet1.urls')), 
     path('', inicio, name="inicio"),
-    path('perfiles/', include('perfiles.urls')), 
+    path('perfiles/', include('perfiles.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

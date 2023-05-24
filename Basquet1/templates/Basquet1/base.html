@@ -24,11 +24,26 @@
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
-            <div class="container">
-                <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
-                <a class="btn btn-primary" href="{% url 'clubes' %}">Clubes</a>
-                <a class="btn btn-secondary" href="{% url 'listar_jugadores'%}">Jugadores</a>
-                <a class="btn btn-warning" href="{% url 'entrenadores'%}">Entrenadores</a>
+        <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <div style="display: inline-flex;">
+                    <span>Base de datos</span>
+                </div>   
+                </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_jugadores' %}">Jugadores</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_clubes' %}"><strong>Clubes</strong></a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_entrenadores' %}">Entrenadores</a>
+                </li>
+                <li>
+            </ul>
+                </div>
                 {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,9 +63,6 @@
                         </li>
                         <li>
                     </ul>
-         
-
-                
                 {% else %}
                 <a class="btn btn-info" href="{% url 'login'%}">Inicio Sesión</a>
                 <a class="btn btn-light" href="{% url 'registro'%}">Registro</a>

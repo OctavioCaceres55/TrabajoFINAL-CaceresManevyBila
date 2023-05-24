@@ -1,46 +1,45 @@
 {% extends 'Basquet1/base.html' %}
 
 {% block contenido %}
-<section style="font-size: large">
+<section>
     <div>
         <h1>Panel de clubes</h1>
-        <p style="font-size: x-large" class="text-success">¿Desea agregar un nuevo club? Haga click aquí debajo</p>
-        <a href="{% url 'cargar-club' %}"> Cargar Club</a>
-        <br><br>
-        <p style="font-size: large" class="text-success">¿Desea filtrar un club? Búsquelo aquí</p>
-        <form action="{% url 'buscar-clubes' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name='busqueda'>
-            <input type="submit" value="Buscar Club por categoria: Liga Nacional, Liga Argentina o Torneo Federal">
-        </form>
-        <br>
         <table class="table">
+            <form method="get" action="{% url 'listar_clubes' %}">
+                <input type="text" name="search_query" placeholder="Buscar clubes">
+                <button type="submit">Buscar clubes</button>
             <tbody>
                 <tr>
                     <th> ID </th>
-                    <th> Nombre del club </th>
-                    <th> Categoria </th>
+                    <th> Nombre </th>
                     <th> Fecha de fundacion</th>
-                    <th> Eliminar</th>
+                    <th> Categoria </th>
+                    <th> Editar</th>
+                    <th> Ver</th>
+                    
                 </tr>
-                {% for club in clubes %}
+                {% for club in object_list %}
                 <tr>
                     <td> {{club.id}}</td>
                     <td> {{club.nombre}}</td>
-                    <td> {{club.categoria_juego}}</td>
                     <td> {{club.fecha_fundacion}}</td>
-                <td>
-                {% if user == club.creador %}
-                <form action="{% url 'eliminar_club' club.id %}" method="post">
-                      {% csrf_token %}
-                      <input type="submit" value="Eliminar"/>
-                    </form>
-                </td>
-                {% endif %}
+                    <td> {{club.categoria_juego}}</td>
+                    <td>
+                       <a href="{% url 'editar_clubes' club.id %}">Editar</a>    
+                    </td> 
+                    <td>
+                        <a href="{% url 'ver_clubes' club.id %}">Ver</a>    
+                     </td> 
+                    <td>
+                        <a href="{% url 'eliminar_clubes' club.id %}">
+                          <i class="bi bi-trash"></i>
+                        </a>  
+                    </td>
+                </tr>
                 {% endfor %}
-
             </tbody>
         </table>
+        
     </div>
 </section>
 {% endblock contenido %} 

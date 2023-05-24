@@ -1,0 +1,22 @@
+{% extends "Basquet1/base.html" %}
+
+{% block contenido %}
+
+
+<p>
+ <strong>Nombre:</strong> {{object.nombre}}
+</p>
+<p>
+ <strong>Categoria del plantel superior:</strong> {{object.categoria_juego}}
+</p>
+<p>
+ <strong>Fecha de Fundacion:</strong> {{object.fecha_fundacion}}
+</p>
+<p>
+ <strong>Imagen:</strong>  {{object.imagen}}
+</p>
+
+<br>
+<a href="{% url 'listar_clubes' %}">Volver</a>
+
+{% endblock contenido %}

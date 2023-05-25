@@ -4,9 +4,15 @@
 <section>
     <div>
         <h1>Panel de jugadores</h1>
-        <form method="get" action="{% url 'listar_jugadores' %}">
-            <input type="text" name="search_query" placeholder="Buscar Jugadores">
-            <button type="submit">Buscar jugadores</button>
+        <form method="get">
+            <input type="text" name="q" value="{{ request.GET.q }}">
+            <button type="submit">Buscar por nombre</button>
+        <form method="get">
+                <input type="text" name="p" value="{{ request.GET.p }}">
+                <button type="submit">Buscar por apellido</button>    
+        <table class="table">
+
+            <table class="table">
         </form>
         <table class="table">
             <tbody>

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Basquet1.views import ArticulosUpdateView, ArticulosCreateView, ArticulosDeleteView, ArticulosDetailView, ArticulosListView
+from Basquet1.views import ArticulosCreateView, ArticulosDetailView, ArticulosDeleteView, ArticulosListView, ArticulosUpdateView
 from Basquet1.views import EntrenadoresCreateView, EntrenadoresDeleteView, EntrenadoresDetailView, EntrenadoresListView, EntrenadoresUpdateView
 from Basquet1.views import JugadoresCreateView, JugadoresDeleteView, JugadoresDetailView, JugadoresListView, JugadoresUpdateView
 from Basquet1.views import ClubesCreateView, ClubesDeleteView, ClubesDetailView, ClubesListView, ClubesUpdateView
@@ -42,10 +42,12 @@ urlpatterns = [
     path("eliminar-jugadres/<int:pk>/", JugadoresDeleteView.as_view(), name="eliminar_jugadores"),
 
     #URL ARTICULOS
-    path("articulos/", ArticulosListView.as_view(), name='articulos_inicio'),
+    path("articulos/", ArticulosListView.as_view(), name="listar_articulo"),
     path("articulos/<int:pk>/", ArticulosDetailView.as_view(), name="ver_articulos"),
-    path("crear-articulo/", ArticulosCreateView.as_view(), name="crear_articulo"),
-    path("editar-articulo/<int:pk>/", ArticulosUpdateView.as_view(), name="editar_articulo"),
-    path("eliminar-articulo/<int:pk>/", ArticulosDeleteView.as_view(), name="eliminar_articulo"), 
+    path("editar-articulos/<int:pk>/",ArticulosUpdateView.as_view(), name="editar_articulos"),
+    path("eliminar-articulos/int:pk>/", ArticulosDeleteView.as_view(), name="eliminar_articulos"),
+    path("crear-articulos/", ArticulosCreateView.as_view(), name="crear_articulo"),
+    
+
 ]
 

@@ -3,7 +3,6 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from Basquet1.models import Entrenadores, Clubes, Jugadores, Articulos
-from Basquet1.forms import EntrenadoresFormulario
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -12,6 +11,21 @@ from django.contrib.auth.decorators import login_required
 class EntrenadoresListView(ListView):
     model = Entrenadores
     template_name = 'Basquet1/panel_entrenadores.html'
+    context_object_name = 'entrenadores'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(nombre__icontains=query)
+        return queryset
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('p')
+        if query:
+            queryset = queryset.filter(apellido__icontains=query)
+        return queryset
 
 class EntrenadoresDetailView(DetailView):
     model = Entrenadores
@@ -36,6 +50,22 @@ class EntrenadoresUpdateView(LoginRequiredMixin, UpdateView):
 class JugadoresListView(ListView):
     model = Jugadores
     template_name = 'Basquet1/panel_jugadores.html'
+    context_object_name = 'jugadores'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(nombre__icontains=query)
+        return queryset
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('p')
+        if query:
+            queryset = queryset.filter(apellido__icontains=query)
+        return queryset
+
 
 class JugadoresDetailView(DetailView):
     model = Jugadores
@@ -59,6 +89,22 @@ class JugadoresUpdateView(LoginRequiredMixin, UpdateView):
 class ClubesListView(ListView):
     model = Clubes
     template_name = 'Basquet1/panel_clubes.html'
+    context_object_name = 'clubes'
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(nombre__icontains=query)
+        return queryset
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('w')
+        if query:
+            queryset = queryset.filter(categoria_juego__icontains=query)
+        return queryset
+
+
+
 
 class ClubesDetailView(DetailView):
     model = Clubes
@@ -78,37 +124,30 @@ class ClubesUpdateView(LoginRequiredMixin, UpdateView):
     fields = ('nombre', 'fecha_fundacion', 'categoria_juego', 'imagen')
     success_url = reverse_lazy('listar_clubes')
 
-class YourListView(ListView):
-    model = Jugadores
-    template_name = 'Basquet/panel_jugadores.html'
-    context_object_name = 'jugadores'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        search_query = self.request.GET.get(search_query)
-        if search_query:
-            queryset = queryset.filter(attribute_icontains= search_query)
-        
-        return queryset
-
+# VIEWS ARTICULOS
 class ArticulosListView(ListView):
     model = Articulos
-    template_name = 'Basquet1/panel_articulos.html'
+    template_name= 'Basquet1/panel_articulo.html'
+
+    
+
+class ArticulosCreateView(CreateView):
+    model = Articulos
+    fields = ('titulo', 'fecha_creacion', 'categoria', 'creador', 'cuerpo', 'descriptivo')
+    success_url = reverse_lazy('listar_articulo')
 
 class ArticulosDetailView(DetailView):
     model = Articulos
-    success_url = reverse_lazy('articulos_inicio')
+    success_url = reverse_lazy('listar_articulo')
 
-class ArticulosCreateView(LoginRequiredMixin, CreateView):
+class ArticulosDeleteView(DeleteView):
     model = Articulos
-    fields = ('titulos', 'fecha_cracion', 'categoria', 'creador', 'cuerpo', 'imagen')
-    success_url = reverse_lazy('articulos_inicio')
+    success_url = reverse_lazy('listar_articulo')
 
-class ArticulosDeleteView(LoginRequiredMixin, DeleteView):
+class ArticulosUpdateView(UpdateView):
     model = Articulos
-    success_url = reverse_lazy('articulos_inicio')
-
-class ArticulosUpdateView(LoginRequiredMixin, UpdateView):
-    model = Articulos
-    fields = ('titulos', 'fecha_cracion', 'categoria', 'creador', 'cuerpo', 'imagen')
-    success_url = reverse_lazy('articulos_inicio')    
+    fields = ('titulo', 'fecha_creacion', 'categoria', 'creador', 'cuerpo', 'descriptivo')
+    success_url = reverse_lazy('listar_articulo')
+        
+         

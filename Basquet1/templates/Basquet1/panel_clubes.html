@@ -4,10 +4,14 @@
 <section>
     <div>
         <h1>Panel de clubes</h1>
+        <form method="get">
+            <input type="text" name="q" value="{{ request.GET.q }}">
+            <button type="submit">Buscar por nombre</button>
         <table class="table">
-            <form method="get" action="{% url 'listar_clubes' %}">
-                <input type="text" name="search_query" placeholder="Buscar clubes">
-                <button type="submit">Buscar clubes</button>
+            <form method="get">
+                <input type="text" name="w" value="{{ request.GET.w }}">
+                <button type="submit">Buscar por categoria</button>
+            <table class="table">
             <tbody>
                 <tr>
                     <th> ID </th>

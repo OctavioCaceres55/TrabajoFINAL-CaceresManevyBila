@@ -1,30 +1,24 @@
 from django import forms
+from Basquet1.models import Articulos, Entrenadores, Clubes, Jugadores
 
-class EntrenadoresFormulario(forms.Form):
-    nombre = forms.CharField(max_length=64, required=True)
-    apellido = forms.CharField(max_length=64, required=True)
-    lugar_de_nacimiento = forms.CharField(max_length=256)
-    fecha_de_nacimiento = forms.DateField()    
-    trayectoria = forms.CharField(max_length=30000)
+class EntrenadoresFormulario(forms.ModelForm):
+    class Meta:
+        model = Entrenadores
+        fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria', 'imagen']
+class JugadoresFormularios(forms.ModelForm):   
+    class Meta:
+        model = Jugadores
+        fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado','imagen']
+class ClubesFormularios(forms.ModelForm):   
+    class Meta:
+        model = Clubes
+        fields = ['nombre', 'categoria_juego', 'fecha_fundacion','imagen']
 
-class JugadoresFormularios(forms.Form):   
-    nombre = forms.CharField(max_length=64, required=True)
-    apellido = forms.CharField(max_length=64, required=True)
-    numero_camiseta = forms.IntegerField()
-    lugar_de_nacimiento = forms.CharField(max_length=256, required=True)
-    fecha_de_nacimiento = forms.DateField() 
-    esta_habilitado = forms.BooleanField(required=True)
 
-class ClubesFormularios(forms.Form):   
-    nombre = forms.CharField(max_length=64, required=True)
-    lugar_de_nacimiento = forms.CharField(max_length=256, required=True)
-    fecha_fundacion = forms.DateField() 
-    categoria_juego = forms.BooleanField(required=True)
+class ArticulosFormularios(forms.ModelForm):
+    class Meta:
+        model = Articulos
+        fields = ['titulo', 'fecha_creacion', 'categoria', 'creador', 'cuerpo', 'descriptivo']
 
-class ArticulosFormularios(forms.Form):   
-    titulo = forms.CharField(max_length=64, required=True)
-    categoria = forms.CharField(max_length=256, required=True)
-    fecha_creacion = forms.DateField() 
-    cuerpo = forms.TextInput()
 
     

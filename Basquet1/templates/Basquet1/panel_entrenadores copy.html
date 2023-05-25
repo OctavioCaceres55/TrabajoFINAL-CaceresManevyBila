@@ -4,10 +4,10 @@
 <section>
     <div>
         <h1>Panel de entrenadores</h1>
-        <form method="get" action="{% url 'listar_entrenadores' %}">
-            <input type="text" name="search_query" placeholder="Buscar entrenadores">
-            <button type="submit">Buscar entrenadores</button>
-        <table class="table">
+        <form method="get">
+            <input type="text" name="q" value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
             <tbody>
                 <tr>
                     <th> ID </th>

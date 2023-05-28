@@ -44,8 +44,9 @@ Si escoges ir a la sección de Artículos, haz click en el botón rojo de Artíc
 Este te llevará a un nuevo sitio web donde podrás leer artículos exclusivamente relacionados a la pelota naranja y al desarrollo de su juego. Podrás crear tus propios artículos y leer bibliografía escrita por otros. 
 
 Por otro lado, si decides ir a la Base de datos, haz click en el botón azúl que lee "Base de datos" y escoge la categoria en la que deseas hondar: Clubes, Jugadores, Entrenadores. 
-En cada una de ellas, podrás ver información sobre perfiles que creados por otras personas y conocerlos.
-Esto fue hecho con el fin de expandir las redes de contactos de los entusiastas del deporte y, para aquellos que les gusta conocer un poco más a las estrellas, tengan un lugar donde buscarlo. 
+En cada una de ellas, podrás ver información sobre perfiles que fueron creados por otras personas y conocerlos.
+
+Esta propuesta fue hecha con el fin de expandir las redes de contactos de los entusiastas del deporte y para los que quieren conocer más sobre las estrellas.
 
 
 

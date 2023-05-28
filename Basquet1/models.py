@@ -5,7 +5,6 @@ from Basquet1.validators import validate_image_size
 class Jugadores(models.Model):
     nombre = models.CharField(max_length=256)
     apellido = models.CharField(max_length=256)
-    numero_camiseta = models.IntegerField()
     lugar_de_nacimiento = models.CharField(max_length=256)
     fecha_de_nacimiento = models.DateField()
     esta_habilitado = models.BooleanField(default=True)
@@ -40,15 +39,25 @@ class Clubes(models.Model):
 
 class Articulos(models.Model):
     titulo = models.CharField(max_length=257)
-    fecha_creacion = models.DateField(null=True)
+    fecha_creacion = models.DateField(null=False)
     categoria= models.CharField(max_length=256)
-    creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     cuerpo = models.TextField()
     descriptivo = models.ImageField(upload_to='articulos', null=True, blank=True, validators=[validate_image_size])
     
     def __str__(self):
         return f"{self.titulo}"
     
+class Aboutme(models.Model):
+    nombre = models.CharField(max_length=256, null=True)
+    apellido = models.CharField(max_length=256, null=True)
+    lugar_de_nacimiento = models.CharField(max_length=256, null=True)
+    fecha_de_nacimiento = models.DateField(null=True)    
+    biografia = models.TextField(null=True)
+    imagen = models.ImageField(upload_to='about_me', null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.nombre}, {self.apellido}"
+
         
 
 

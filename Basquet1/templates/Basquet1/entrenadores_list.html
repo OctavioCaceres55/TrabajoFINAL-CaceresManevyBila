@@ -7,10 +7,11 @@
         <form method="get">
             <input type="text" name="q" value="{{ request.GET.q }}">
             <button type="submit">Buscar por nombre</button>
+        <form method="get">
+            <input type="text" name="p" value="{{ request.GET.p }}">
+            <button type="submit">Buscar por apellido</button>
+        <a href="{% url 'crear_entrenadores' %}" class="btn btn-primary">Crear perfil del nuevo entrenador</a>    
         <table class="table">
-            <form method="get">
-                <input type="text" name="p" value="{{ request.GET.p }}">
-                <button type="submit">Buscar por apellido</button>
             <table class="table">
             <tbody>
                 <tr>

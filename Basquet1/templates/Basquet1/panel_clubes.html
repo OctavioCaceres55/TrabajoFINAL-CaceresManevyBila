@@ -6,11 +6,12 @@
         <h1>Panel de clubes</h1>
         <form method="get">
             <input type="text" name="q" value="{{ request.GET.q }}">
-            <button type="submit">Buscar por nombre</button>
-        <table class="table">
-            <form method="get">
-                <input type="text" name="w" value="{{ request.GET.w }}">
-                <button type="submit">Buscar por categoria</button>
+            <button type="submit">Buscar por nombre</button>        
+        <form method="get">
+            <input type="text" name="w" value="{{ request.GET.w }}">
+            <button type="submit">Buscar por categoria</button>
+            <a href="{% url 'crear_clubes' %}" class="btn btn-primary">Crear perfil del nuevo club</a>    
+        <table class="table">        
             <table class="table">
             <tbody>
                 <tr>

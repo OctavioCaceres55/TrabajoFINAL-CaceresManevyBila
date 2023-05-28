@@ -4,17 +4,16 @@
 <section>
     <div>
         <h1>Panel de jugadores</h1>
-        <form method="get">
+        </form>
+        <table class="table">        
+            <form method="get">
             <input type="text" name="q" value="{{ request.GET.q }}">
             <button type="submit">Buscar por nombre</button>
         <form method="get">
                 <input type="text" name="p" value="{{ request.GET.p }}">
-                <button type="submit">Buscar por apellido</button>    
-        <table class="table">
-
-            <table class="table">
-        </form>
-        <table class="table">
+                <button type="submit">Buscar por apellido</button>
+                
+        <a href="{% url 'crear_jugadores' %}" class="btn btn-primary">Crear perfil del nuevo jugador</a>
             <tbody>
                 <tr>
                     <th> ID </th>

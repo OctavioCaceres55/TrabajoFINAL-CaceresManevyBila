@@ -38,12 +38,6 @@ python manage.py runserver
 ```
 127.0.0.1:8000
 ```
-+ Ya dentro, podrás navegar en 3 diferentes sitios: Clubes, Jugadores y Entrenadores. Cada uno contiene un título, junto con un buscador donde podrás: 
-- Filtrar equipos segun su categoria
-- Hallar entrenadores 
-- Hallar jugadores
-+ Luego, podrás leer sobre los mejores entrenadores, en la sección Biogragría. 
-
 
 
 

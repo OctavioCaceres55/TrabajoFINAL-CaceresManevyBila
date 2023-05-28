@@ -19,6 +19,9 @@ pip install -r requirements.txt
 ```
 python manage.py createsuperuser
 ```
++ El superuser ya creado es 
++ User: octav
++ Password: 1234admin
 + Acceder con user y password via:
 ```
 127.0.0.1:8000/admin

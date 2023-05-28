@@ -1,0 +1,9 @@
+{% extends 'Basquet1/base1.html' %}
+{% block content %}
+  <h1>Editar artículo</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Salvar cambios </button>
+  </form>
+{% endblock %}

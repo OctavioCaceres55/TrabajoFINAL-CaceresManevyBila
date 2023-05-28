@@ -25,7 +25,7 @@ class AboutmeFormularios(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'content', 'author', 'status', 'slug')
+        fields = ('title', 'content',)
 
 
 

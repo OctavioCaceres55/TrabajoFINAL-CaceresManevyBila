@@ -1,12 +1,14 @@
 from typing import Any
+from django.http import HttpResponseRedirect
 from django.db.models.query import QuerySet
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Post
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from .forms import PostForm
 # Vistas Entrenadores
@@ -148,17 +150,33 @@ class PostDetail(generic.DetailView):
 
 @login_required
 def create_post(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
-    return render(request, 'create_post.html', {'form': form})
-# ABOUT ME VIEWS
+    return render(request, 'Basquet1/post_edit.html', {'form': form})
+
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            # Do any additional processing on the post object if necessary
+            post.save()
+            return redirect("post_detail", pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, "post_edit.html", {"form": form})
+
+
 
 class AboutmeListView(ListView):
     model = Aboutme

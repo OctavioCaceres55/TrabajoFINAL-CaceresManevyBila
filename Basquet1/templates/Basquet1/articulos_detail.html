@@ -1,0 +1,22 @@
+{% extends "Basquet1/base.html" %}
+{% load static %}
+{% block contenido %}
+
+
+<p>
+ <strong>Titulo:</strong> {{object.titulo}}
+</p>
+<p>
+ <strong>Fecha de creacion:</strong> {{object.fecha_creacion}}
+</p>
+<p>
+ <strong>Categoria:</strong> {{object.categoria}}
+</p>
+<p>
+<strong>Articulo:</strong>  {{object.cuerpo}}
+</p>
+
+<br>
+<a href="{% url 'listar_articulo' %}">Volver</a>
+
+{% endblock contenido %}

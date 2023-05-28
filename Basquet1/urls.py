@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from BlogBaloncesto.settings import STATIC_URL,  MEDIA_ROOT, DEBUG
-from Basquet1.views import AboutmeCreateView, AboutmeDetailView, AboutmeListView, AboutmeUpdateView
-from Basquet1.views import ArticulosCreateView, ArticulosDetailView, ArticulosDeleteView, ArticulosListView, ArticulosUpdateView
+from Basquet1.views import AboutmeCreateView, AboutmeDetailView, AboutmeListView, AboutmeUpdateView, create_post
 from Basquet1.views import EntrenadoresCreateView, EntrenadoresDeleteView, EntrenadoresDetailView, EntrenadoresListView, EntrenadoresUpdateView
 from Basquet1.views import JugadoresCreateView, JugadoresDeleteView, JugadoresDetailView, JugadoresListView, JugadoresUpdateView
 from Basquet1.views import ClubesCreateView, ClubesDeleteView, ClubesDetailView, ClubesListView, ClubesUpdateView
+from . import views
+
+
 urlpatterns = [
     #URL ENTRENADORES
     path("entrenadores/", EntrenadoresListView.as_view(), name='listar_entrenadores'),
@@ -45,11 +47,9 @@ urlpatterns = [
     path("eliminar-jugadres/<int:pk>/", JugadoresDeleteView.as_view(), name="eliminar_jugadores"),
 
     #URL ARTICULOS
-    path("articulos/", ArticulosListView.as_view(), name="listar_articulo"),
-    path("articulos/<int:pk>/", ArticulosDetailView.as_view(), name="ver_articulos"),
-    path("editar-articulos/<int:pk>/",ArticulosUpdateView.as_view(), name="editar_articulos"),
-    path("eliminar-articulos/<int:pk>/", ArticulosDeleteView.as_view(), name="eliminar_articulos"),
-    path("crear-articulos/", ArticulosCreateView.as_view(), name="crear_articulo"),
+    path('articulos', views.PostList.as_view(), name='listar_articulo'),
+    path('articulos/<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('articulos/crear-articulo/', create_post, name='create_post'),
 
     #URLS SOBRE MI 
     path("sobre-mi/", AboutmeListView.as_view(), name='detalles'),

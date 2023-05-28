@@ -2,15 +2,14 @@
 
 {% block contenido %}
 <section>
-    <div>
+
         <h1>Panel de entrenadores</h1>
-        <form method="get">
-            <input type="text" name="q" value="{{ request.GET.q }}">
-            <button type="submit">Buscar por nombre</button>
+    
         <form method="get">
             <input type="text" name="p" value="{{ request.GET.p }}">
             <button type="submit">Buscar por apellido</button>
-        <a href="{% url 'crear_entrenadores' %}" class="btn btn-primary">Crear perfil del nuevo entrenador</a>    
+        <br></br>
+        <a href="{% url 'crear_entrenadores' %}" class="btn btn-primary">Crear perfil del nuevo entrenador</a>      
         <table class="table">
             <table class="table">
             <tbody>
@@ -43,5 +42,23 @@
         </table>
         
     </div>
+    <a class="btn btn-danger" href="{% url 'listar_articulo'%}">Articulos</a>
+
+    <br></br>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+         <div style="display: inline-flex;">
+            <span>Base de Datos:</span>
+        </div>   
+        </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+            <a class="dropdown-item" href="{% url 'listar_jugadores' %}">Jugadores</a>
+        </li>
+        <li>
+            <li>
+                <a class="dropdown-item" href="{% url 'listar_clubes' %}">Clubes</a>
+            </li>
+    </ul>    
 </section>
 {% endblock contenido %} 

@@ -25,7 +25,6 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
         <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
-        <a class="btn btn-success" href="{% url 'detalles'%}">Sobre el creador</a>
 <h1> Bienvenido a BlogBaloncesto </h1>
                 {% if user.is_authenticated %}
                 <div class="dropdown">
@@ -80,6 +79,7 @@
                             <li class="list-inline-item">
                                 <a href="https://www.instagram.com/nba/"><i class="bi-instagram fs-3"></i></a>
                             </li>
+                            <a class="btn btn-danger" href="{% url 'detalles'%}">Sobre el creador</a>
                         </ul>
                     </div>
                 </div>

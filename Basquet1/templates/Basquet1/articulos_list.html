@@ -4,12 +4,14 @@
     <div>
         <h1>Articulos</h1>
         <h2> Las categorías de artículos son: Ataque, Defensa, Lanzamiento, Estrategia y Mental</h2>
-        
         <table class="table">
-            <a href="{% url 'crear_articulo' %}" class="btn btn-primary">Crear articulo</a> 
+            
             <form method="get">
                 <input type="text" name="q" value="{{ request.GET.q }}">
-                <button type="submit">Buscar por categoria</button>          
+                <button type="submit">Buscar por categoria</button>
+                <br></br>              
+            <a href="{% url 'crear_articulo' %}" class="btn btn-primary">Crear articulo</a>
+            <br></br>
             <table class="table">
             <tbody>
                 <tr>
@@ -39,8 +41,27 @@
                         </a>  
                     </td>
                 </tr>
-                {% endfor %}
             </tbody>
-        </table>    
+        </table> 
+        <br></br>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+             <div style="display: inline-flex;">
+                <span>Base de datos</span>
+            </div>   
+            </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+                <a class="dropdown-item" href="{% url 'listar_jugadores' %}">Jugadores</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'listar_clubes' %}"><strong>Clubes</strong></a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'listar_entrenadores' %}">Entrenadores</a>
+            </li>
+            <li>
+        </ul>
+        <div>   
 
 {% endblock contenido %}

@@ -2,10 +2,13 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from Basquet1.models import Entrenadores, Clubes, Jugadores, Articulos, Aboutme
+from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Post
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+from django.shortcuts import render, redirect
+from .forms import PostForm
 # Vistas Entrenadores
 
 class EntrenadoresListView(ListView):
@@ -33,7 +36,7 @@ class EntrenadoresDetailView(DetailView):
 
 class EntrenadoresCreateView(LoginRequiredMixin, CreateView):
     model = Entrenadores
-    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria', 'imagen']
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria']
     success_url = reverse_lazy('listar_entrenadores')
 
     def form_valid(self, form):
@@ -46,7 +49,7 @@ class EntrenadoresDeleteView(LoginRequiredMixin, DeleteView):
 
 class EntrenadoresUpdateView(LoginRequiredMixin, UpdateView):
     model = Entrenadores
-    fields = ('apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria', 'imagen')
+    fields = ('apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria')
     success_url = reverse_lazy('listar_entrenadores')
 
 # Vistas Jugadores
@@ -77,7 +80,7 @@ class JugadoresDetailView(DetailView):
 
 class JugadoresCreateView(LoginRequiredMixin, CreateView):
     model = Jugadores
-    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado','imagen']
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club']
     success_url = reverse_lazy('listar_jugadores')
     
     def form_valid(self, form):
@@ -90,7 +93,7 @@ class JugadoresDeleteView(LoginRequiredMixin, DeleteView):
 
 class JugadoresUpdateView(LoginRequiredMixin, UpdateView):
     model = Jugadores
-    fields = ('apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'imagen')
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club']
     success_url = reverse_lazy('listar_jugadores')
 
 # Vistas Clubes
@@ -117,7 +120,7 @@ class ClubesDetailView(DetailView):
 
 class ClubesCreateView(LoginRequiredMixin, CreateView):
     model = Clubes
-    fields = ['nombre', 'categoria_juego', 'fecha_fundacion','imagen']
+    fields = ['nombre', 'categoria_juego', 'fecha_fundacion']
     success_url = reverse_lazy('listar_clubes')
 
     def form_valid(self, form):
@@ -130,50 +133,31 @@ class ClubesDeleteView(LoginRequiredMixin, DeleteView):
 
 class ClubesUpdateView(LoginRequiredMixin, UpdateView):
     model = Clubes
-    fields = ('nombre', 'fecha_fundacion', 'categoria_juego', 'imagen')
+    fields = ('nombre', 'fecha_fundacion', 'categoria_juego')
     success_url = reverse_lazy('listar_clubes')
 
 
 # VIEWS ARTICULOS
-class ArticulosListView(ListView):
-    model = Articulos
-    template_name= 'Basquet1/panel_articulo.html'
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('t')
-        if query:
-            queryset = queryset.filter(titulo__icontains=query)
-        return queryset
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('q')
-        if query:
-            queryset = queryset.filter(categoria__icontains=query)
-        return queryset
+class PostList(generic.ListView):
+    queryset = Post.objects.filter(status=1).order_by('-created_on')
+    template_name = 'Basquet1/index1.html'
 
-class ArticulosCreateView(CreateView):
-    model = Articulos
-    fields = ['titulo', 'fecha_creacion', 'categoria', 'cuerpo', 'descriptivo']
-    success_url = reverse_lazy('listar_articulo')
+class PostDetail(generic.DetailView):
+    model = Post
+    template_name = 'Basquet1/post_detail.html'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-class ArticulosDetailView(DetailView):
-    model = Articulos
-    success_url = reverse_lazy('listar_articulo')
-
-class ArticulosDeleteView(DeleteView):
-    model = Articulos
-    success_url = reverse_lazy('listar_articulo')
-
-class ArticulosUpdateView(UpdateView):
-    model = Articulos
-    fields = ('titulo', 'fecha_creacion', 'categoria', 'creador', 'cuerpo', 'descriptivo')
-    success_url = reverse_lazy('listar_articulo')
-
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'create_post.html', {'form': form})
 # ABOUT ME VIEWS
 
 class AboutmeListView(ListView):

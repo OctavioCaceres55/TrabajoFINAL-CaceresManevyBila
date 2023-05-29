@@ -25,6 +25,9 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
         <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
+        {% if user.avatar %}
+        <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: -100px;">
+        {% endif %}        
 <h1> Bienvenido a BlogBaloncesto </h1>
                 {% if user.is_authenticated %}
                 <div class="dropdown">

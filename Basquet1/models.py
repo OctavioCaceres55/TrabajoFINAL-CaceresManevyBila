@@ -1,11 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Basquet1.validators import validate_image_size
+from datetime import date
 
-STATUS = (
-    (0,"Draft"),
-    (1,"Publish")
-)
 
 class Jugadores(models.Model):
     nombre = models.CharField(max_length=256)
@@ -54,21 +51,15 @@ class Aboutme(models.Model):
     def __str__(self):
         return f"{self.nombre}, {self.apellido}"
     
-class Post(models.Model):
-    title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
-    updated_on = models.DateTimeField()
-    content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
+class Articulo(models.Model):
+    titulo = models.CharField(max_length=250)
+    subtitulo = models.CharField(max_length=250)
+    cuerpo = models.TextField()
+    fecha = models.DateField(default=date.today)
+    autor = models.CharField(max_length=256, default="Anónimo")
 
-    class Meta:
-        ordering = ['-created_on']
 
-    def __str__(self):
-        return self.title
-        
+    
 
 
 

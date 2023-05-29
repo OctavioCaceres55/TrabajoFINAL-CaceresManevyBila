@@ -22,7 +22,7 @@ from Basquet1.views import AboutmeCreateView, AboutmeDetailView, AboutmeListView
 from Basquet1.views import EntrenadoresCreateView, EntrenadoresDeleteView, EntrenadoresDetailView, EntrenadoresListView, EntrenadoresUpdateView
 from Basquet1.views import JugadoresCreateView, JugadoresDeleteView, JugadoresDetailView, JugadoresListView, JugadoresUpdateView
 from Basquet1.views import ClubesCreateView, ClubesDeleteView, ClubesDetailView, ClubesListView, ClubesUpdateView
-from Basquet1.views import PostList, PostDetail, PostCreate
+from Basquet1.views import listar_articulo, buscar_articulo
 from . import views
 
 
@@ -48,8 +48,8 @@ urlpatterns = [
     path("eliminar-jugadres/<int:pk>/", JugadoresDeleteView.as_view(), name="eliminar_jugadores"),
 
     #URL ARTICULOS
-    path('articulos/', views.PostList.as_view(), name='listar_articulo'),
-    path('articulos/<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path("articulos/", listar_articulo, name="listar_articulo"),
+    path("buscar-articulo/", buscar_articulo, name="buscar_articulo"),  
     #URLS SOBRE MI 
     path("sobre-mi/", AboutmeListView.as_view(), name='detalles'),
 ]

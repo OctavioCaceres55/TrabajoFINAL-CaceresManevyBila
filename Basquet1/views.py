@@ -3,14 +3,13 @@ from django.http import HttpResponseRedirect
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Post
+from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Articulo
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.utils import timezone
 from django.shortcuts import render, redirect
-from .forms import PostForm
 # Vistas Entrenadores
 
 class EntrenadoresListView(ListView):
@@ -140,18 +139,6 @@ class ClubesUpdateView(LoginRequiredMixin, UpdateView):
 
 
 # VIEWS ARTICULOS
-class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'Basquet1/index1.html'
-
-class PostDetail(generic.DetailView):
-    model = Post
-    template_name = 'Basquet1/post_detail.html'
-
-class PostCreate(generic.CreateView):
-    model = Post
-    template_name= 'Basquet1/post_form.html'
-    
 
 class AboutmeListView(ListView):
     model = Aboutme
@@ -174,3 +161,30 @@ class AboutmeUpdateView(UpdateView):
     model = Aboutme
     success_url = reverse_lazy('detalles')
         
+def listar_articulo(request):
+    contexto = {
+        "articulos": Articulo.objects.all(),
+    }
+
+    http_response = render(
+        request=request,
+        template_name='Basquet1/listar_articulos.html',
+        context=contexto,
+    )
+    return http_response
+
+def buscar_articulo(request):
+    if request.method == "POST":
+        data = request.POST
+        busqueda = data["busqueda"]
+        articulos = Articulo.objects.filter(titulo__contains=busqueda)
+        contexto = {
+            "articulos": articulos,
+            "reciente": busqueda
+        }
+        http_response = render(
+            request=request,
+            template_name='Basquet1/listar_articulos.html',
+            context=contexto,
+        )
+        return http_response

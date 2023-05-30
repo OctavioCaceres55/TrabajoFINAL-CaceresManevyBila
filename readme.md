@@ -51,6 +51,8 @@ En cada una de ellas, podrás ver información sobre perfiles que fueron creados
 
 Esta propuesta fue hecha con el fin de expandir las redes de contactos de los entusiastas del deporte y para los que quieren conocer más sobre las estrellas.
 
+Link de presentacion: https://www.loom.com/share/655983b92d614fa1b05a55078d593f44
+
 
 
 

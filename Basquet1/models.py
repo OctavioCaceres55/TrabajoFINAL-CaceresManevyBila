@@ -13,6 +13,7 @@ class Jugadores(models.Model):
     creador = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     club = models.CharField(max_length=256, default="Agente Libre")
     numero_camiseta = models.IntegerField(default=00)
+    creador1= models.CharField(max_length=256, default="Aquí va el nombre de usuario")
 
 
     def __str__(self):
@@ -25,7 +26,7 @@ class Entrenadores(models.Model):
     fecha_de_nacimiento = models.DateField()    
     trayectoria = models.TextField()
     creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    
+    creador1= models.CharField(max_length=256, default="Aquí va el nombre de usuario")
 
     def __str__(self):
         return f"{self.nombre}, {self.apellido}"
@@ -35,7 +36,7 @@ class Clubes(models.Model):
     fecha_fundacion = models.DateField()
     categoria_juego = models.CharField(max_length=256)
     creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    
+    creador1= models.CharField(max_length=256, default="Aquí va el nombre de usuario")
     
     def __str__(self):
         return f"{self.nombre}"
@@ -57,6 +58,7 @@ class Articulo(models.Model):
     cuerpo = models.TextField()
     fecha = models.DateField(default=date.today)
     autor = models.CharField(max_length=256, default="Anónimo")
+    creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
 
     

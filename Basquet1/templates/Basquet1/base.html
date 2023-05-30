@@ -32,11 +32,12 @@
 <h1> Bienvenido a BlogBaloncesto </h1>
                 {% if user.is_authenticated %}
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px;">
                         <div style="display: inline-flex;">
-                        <span>{{ user.username }}</span> 
+                         
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: 5px;">
+                            <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 100px; height: 100px; margin-left: 20px;">
+                            
                             {% else %}
                             <span>{{ user.username }}</span>
                             {% endif %}

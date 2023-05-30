@@ -4,6 +4,8 @@
 <section style="margin-left: 100px;">
   <div>
     <h1>Panel de Articulos</h1>
+    <h2>Los artículos deben tener el mismo nombre de autor que el nombre del usuario utilizado para accionar sobre él (Actualizarlo o Eliminarlo)</h2>
+    <br></div>
     <div class="search-bar-container" >
       <form action="{% url 'buscar_articulo' %}" method="post">
         {% csrf_token %}
@@ -20,9 +22,8 @@
     </div>
     <br></br>
     {% if articulos|length == 0%}
-      <p style="margin-top: -30px;">No hay lo que estas buscando</p>
+      <p style="margin-top: -30px;">No hay entradas aun</p>
     {% else %}
-
      <table class="table">        
       <table class="table">
       <tbody>
@@ -34,7 +35,6 @@
               <th> Ver</th>
               <th> Editar</th>
               <th> Eliminar</th>
-              
           </tr>
         {% for articulo in articulos %}
           <tr>
@@ -46,7 +46,7 @@
               <a href="{% url 'ver_articulo' articulo.id %}">Leer mas</a>    
               </td>
                       <td>
-                       {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}
+                        {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}
                        <a href="{% url 'editar_articulo' articulo.id %}">Editar</a>    
                        {% endif %}
                        <td>

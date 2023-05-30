@@ -4,6 +4,8 @@
 <section>
     <div>
         <h1>Panel de clubes</h1>
+        <h2>Los clubes deben tener el mismo nombre de autor que el nombre del usuario utilizado para accionar sobre él (Actualizarlo o Eliminarlo)</h2>
+        <br></div>
             <input type="text" name="w" value="{{ request.GET.w }}">
             <button type="submit">Buscar por categoria</button>
             <br></br>  
@@ -17,6 +19,7 @@
                     <th> Nombre </th>
                     <th> Fecha de fundacion</th>
                     <th> Categoria </th>
+                    <th> Creador </th>
                     <th> Editar</th>
                     <th> Ver</th>
                     
@@ -27,15 +30,20 @@
                     <td> {{club.nombre}}</td>
                     <td> {{club.fecha_fundacion}}</td>
                     <td> {{club.categoria_juego}}</td>
+                    <td> {{club.creador1}}</td>
                     <td>
-                       <a href="{% url 'editar_clubes' club.id %}">Editar</a>    
+                        {% if user.username == club.creador1 or user.is_superuser or user.is_staff %}
+                       <a href="{% url 'editar_clubes' club.id %}">Editar</a>   
+                       {% endif %} 
                     </td> 
                     <td>
                         <a href="{% url 'ver_clubes' club.id %}">Ver</a>    
                      </td> 
                     <td>
+                        {% if user.username == club.creador1 or user.is_superuser or user.is_staff %}
                         <a href="{% url 'eliminar_clubes' club.id %}">
                           <i class="bi bi-trash"></i>
+                          {% endif %}
                         </a>  
                     </td>
                 </tr>
@@ -44,7 +52,7 @@
         </table>
         
     </div>
-    <a class="btn btn-danger" href="#!">Articulos</a>
+    <a class="btn btn-danger" href="{% url 'listar_articulo'%}">Articulos</a>
 
     <br></br>
     <div class="dropdown">

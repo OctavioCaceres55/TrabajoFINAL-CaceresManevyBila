@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Articulo
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.utils import timezone
@@ -38,7 +38,7 @@ class EntrenadoresDetailView(DetailView):
 
 class EntrenadoresCreateView(LoginRequiredMixin, CreateView):
     model = Entrenadores
-    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria']
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria', 'creador1']
     success_url = reverse_lazy('listar_entrenadores')
 
     def form_valid(self, form):
@@ -51,7 +51,7 @@ class EntrenadoresDeleteView(LoginRequiredMixin, DeleteView):
 
 class EntrenadoresUpdateView(LoginRequiredMixin, UpdateView):
     model = Entrenadores
-    fields = ('apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria')
+    fields = ('apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'trayectoria', 'creador1')
     success_url = reverse_lazy('listar_entrenadores')
 
 # Vistas Jugadores
@@ -82,20 +82,25 @@ class JugadoresDetailView(DetailView):
 
 class JugadoresCreateView(LoginRequiredMixin, CreateView):
     model = Jugadores
-    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club']
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club', 'creador1']
     success_url = reverse_lazy('listar_jugadores')
     
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class JugadoresDeleteView(LoginRequiredMixin, DeleteView):
+class JugadoresDeleteView(LoginRequiredMixin, DeleteView, UserPassesTestMixin):
     model = Jugadores
     success_url = reverse_lazy('listar_jugadores')
+    template_name = 'Basquet1/jugadores_confirm_delete.html'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 class JugadoresUpdateView(LoginRequiredMixin, UpdateView):
     model = Jugadores
-    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club']
+    fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento', 'esta_habilitado', 'numero_camiseta','club', 'creador1']
     success_url = reverse_lazy('listar_jugadores')
 
 # Vistas Clubes
@@ -122,7 +127,7 @@ class ClubesDetailView(DetailView):
 
 class ClubesCreateView(LoginRequiredMixin, CreateView):
     model = Clubes
-    fields = ['nombre', 'categoria_juego', 'fecha_fundacion']
+    fields = ['nombre', 'categoria_juego', 'fecha_fundacion', 'creador1']
     success_url = reverse_lazy('listar_clubes')
 
     def form_valid(self, form):
@@ -135,7 +140,7 @@ class ClubesDeleteView(LoginRequiredMixin, DeleteView):
 
 class ClubesUpdateView(LoginRequiredMixin, UpdateView):
     model = Clubes
-    fields = ('nombre', 'fecha_fundacion', 'categoria_juego')
+    fields = ('nombre', 'fecha_fundacion', 'categoria_juego', 'creador1')
     success_url = reverse_lazy('listar_clubes')
 
 
@@ -164,17 +169,17 @@ class AboutmeUpdateView(UpdateView):
 
 # VIEWS ARTICULOS
         
-def listar_articulo(request):
-    contexto = {
-        "articulos": Articulo.objects.all(),
-    }
+def listar_articulos(request):
+   contexto = {
+       "articulos": Articulo.objects.all(),
+   }
+   http_response = render(
+       request=request,
+       template_name='Basquet1/listar_articulos.html',
+       context=contexto,
+   )
+   return http_response
 
-    http_response = render(
-        request=request,
-        template_name='Basquet1/listar_articulos.html',
-        context=contexto,
-    )
-    return http_response
 
 def buscar_articulo(request):
     if request.method == "POST":
@@ -192,32 +197,15 @@ def buscar_articulo(request):
         )
         return http_response
     
-@login_required
-def crear_articulo(request):
-   if request.method == "POST":
-       formulario = ArticuloFormulario(request.POST)
+class ArticuloCreateView(CreateView, LoginRequiredMixin):
+    model = Articulo
+    fields = ('titulo', 'subtitulo', 'cuerpo','autor', 'fecha')
+    success_url = reverse_lazy('listar_articulo')
 
-       if formulario.is_valid():
-           data = formulario.cleaned_data  
-           titulo = data["titulo"]
-           subtitulo = data["subtitulo"]
-           cuerpo = data["cuerpo"]
-           autor = data["autor"]
-           fecha = data["fecha"]
-           articulo = Articulo(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  
-           articulo.save()  
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-           
-           url_exitosa = reverse('listar_articulo') 
-           return redirect(url_exitosa)
-   else:  
-       formulario = ArticuloFormulario()
-   http_response = render(
-       request=request,
-       template_name='Basquet1/articulo_formulario.html',
-       context={'formulario': formulario}
-   )
-   return http_response 
 
 class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
     model = Articulo

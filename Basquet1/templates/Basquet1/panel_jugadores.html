@@ -2,6 +2,7 @@
 
 {% block contenido %}
         <h1>Panel de jugadores</h1>
+        <h2>Los jugadores deben tener el mismo nombre de autor que el nombre del usuario utilizado para accionar sobre él (Actualizarlo o Eliminarlo)</h2>
         <table class="table">        
         <form method="get">
                 <input type="text" name="p" value="{{ request.GET.p }}">
@@ -13,6 +14,7 @@
                     <th> ID </th>
                     <th> Nombre </th>
                     <th> Apellido</th>
+                    <th> Creador</th>
                     <th> Editar</th>
                     <th> Ver</th>
                     
@@ -25,15 +27,20 @@
                     <td> {{jugador.id}}</td>
                     <td> {{jugador.nombre}}</td>
                     <td> {{jugador.apellido}}</td>
+                    <td> {{jugador.creador1}}</td>
                     <td>
-                       <a href="{% url 'editar_jugadores' jugador.id %}">Aquí</a>    
+                        {% if user.username == jugador.creador1 or user.is_superuser or user.is_staff %}
+                       <a href="{% url 'editar_jugadores' jugador.id %}">Aquí</a>  
+                       {% endif %}  
                     </td> 
                     <td>
                         <a href="{% url 'ver_jugadores' jugador.id %}">Ver</a>    
                      </td> 
                     <td>
+                        {% if user.username == jugador.creador1 or user.is_superuser or user.is_staff %}
                         <a href="{% url 'eliminar_jugadores' jugador.id %}">
                           <i class="bi bi-trash"></i>
+                          {% endif %}
                         </a>  
                     </td>
                 </tr>
@@ -42,7 +49,7 @@
         </table>
         
     </div>
-    <a class="btn btn-danger" href="#!">Articulos</a>
+    <a class="btn btn-danger" href="{% url 'listar_articulo'%}">Articulos</a>
 
     <br></br>
     <div class="dropdown">

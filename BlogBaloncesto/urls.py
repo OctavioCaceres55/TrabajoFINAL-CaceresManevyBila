@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo-html/', saludar_con_html),
     path('saludo-html-base/', saludar_con_html_1),
-    path('BlogBasquet/', include('Basquet1.urls')), 
+    path('/BlogBaloncesto/', include('Basquet1.urls')), 
     path('', inicio, name="inicio"),
     path('perfiles/', include('perfiles.urls')),
 ]

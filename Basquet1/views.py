@@ -107,19 +107,22 @@ class JugadoresUpdateView(LoginRequiredMixin, UpdateView):
 class ClubesListView(ListView):
     model = Clubes
     template_name = 'Basquet1/panel_clubes.html'
-    context_object_name = 'clubes'
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('q')
-        if query:
-            queryset = queryset.filter(nombre__icontains=query)
-        return queryset
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('w')
-        if query:
-            queryset = queryset.filter(categoria_juego__icontains=query)
-        return queryset
+
+def buscar_clubes(request):
+    if request.method == "POST":
+        data = request.POST
+        busqueda = data["busqueda"]
+        clubes = Clubes.objects.filter(categoria_juego__icontains=busqueda)
+        contexto = {
+            "clubes": clubes,
+            "reciente": busqueda
+        }
+        http_response = render(
+            request=request,
+            template_name='Basquet1/panel_clubes.html',
+            context=contexto,
+        )
+        return http_response
 
 class ClubesDetailView(DetailView):
     model = Clubes

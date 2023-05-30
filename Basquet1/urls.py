@@ -21,7 +21,7 @@ from BlogBaloncesto.settings import STATIC_URL,  MEDIA_ROOT, DEBUG
 from Basquet1.views import AboutmeCreateView, AboutmeDetailView, AboutmeListView, AboutmeUpdateView 
 from Basquet1.views import EntrenadoresCreateView, EntrenadoresDeleteView, EntrenadoresDetailView, EntrenadoresListView, EntrenadoresUpdateView
 from Basquet1.views import JugadoresCreateView, JugadoresDeleteView, JugadoresDetailView, JugadoresListView, JugadoresUpdateView
-from Basquet1.views import ClubesCreateView, ClubesDeleteView, ClubesDetailView, ClubesListView, ClubesUpdateView
+from Basquet1.views import ClubesCreateView, ClubesDeleteView, ClubesDetailView, ClubesListView, ClubesUpdateView, buscar_clubes
 from Basquet1.views import listar_articulos, buscar_articulo, ArticuloCreateView, ArticuloDeleteView, ArticuloUpdateView, ArticuloDetailView
 from . import views
 
@@ -35,6 +35,7 @@ urlpatterns = [
     path("eliminar-entrenadores/<int:pk>/", EntrenadoresDeleteView.as_view(), name="eliminar_entrenadores"), 
     #URL CLUBES
     path("clubes/", ClubesListView.as_view(), name='listar_clubes'),
+    path("clubes/buscar-clubes/", buscar_clubes, name="buscar_clubes"), 
     path("clubes/<int:pk>/", ClubesDetailView.as_view(), name="ver_clubes"),
     path("crear-clubes/", ClubesCreateView.as_view(), name="crear_clubes"),
     path("editar-clubes/<int:pk>/", ClubesUpdateView.as_view(), name="editar_clubes"),

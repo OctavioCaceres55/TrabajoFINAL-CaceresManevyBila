@@ -27,15 +27,19 @@
         <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
         <a class="btn btn-danger" href="{% url 'listar_articulo' %}">Articulos</a>
         {% if user.avatar %}
-        <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: -50px;">
         {% endif %}      
       
 <h1> Bienvenido a BlogBaloncesto </h1>
                 {% if user.is_authenticated %}
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px;">
                         <div style="display: inline-flex;">
+                        <span>{{ user.username }}</span> 
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: 5px;">
+                            {% else %}
                             <span>{{ user.username }}</span>
+                            {% endif %}
                         </div>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

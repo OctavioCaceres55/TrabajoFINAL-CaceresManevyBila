@@ -43,7 +43,7 @@
               <td> {{articulo.fecha}}</td>
               <td> {{articulo.autor}}</td>
               <td>
-              <a href="{% url 'ver_articulo' articulo.id %}">Leer este artículo</a>    
+              <a href="{% url 'ver_articulo' articulo.id %}">Leer mas</a>    
               </td>
                       <td>
                        {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}

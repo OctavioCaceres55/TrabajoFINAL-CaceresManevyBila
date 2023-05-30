@@ -8,13 +8,12 @@
       <form action="{% url 'buscar_articulo' %}" method="post">
         {% csrf_token %}
         <input type="text" name="busqueda" value="{{ reciente }}">
-        <input type="submit" value="Buscar"  style="margin-right: 50px">
+        <input type="submit" value="Buscar por título"  style="margin-right: 50px">
       </form>
       {% if user.is_authenticated %}
       <div class="create-article-container" style="margin-right: 50px;">
         <div class="list-group" style="width: 247px; float: right;">
-          <a href="#!" class="list-group-item list-group-item-action text-center" style="margin-top: 10px; color: #fff;
-          background-color: #0d6efd;">Crear Articulo</a>
+          <a href="{% url 'crear_articulo' %}" class="list-group-item list-group-item-action text-center">Crear Articulo</a>
         </div>
       </div>
       {% endif %}
@@ -23,39 +22,43 @@
     {% if articulos|length == 0%}
       <p style="margin-top: -30px;">No hay lo que estas buscando</p>
     {% else %}
-      <br>
-          {% for articulo in articulos %}
 
-          <div class="dropdown">
-            <button class="btn btn-secondary custom-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: white; margin-top: -50px; margin-bottom: 80px">
-              <div class="button-content" style="display: flex; flex-direction: column; align-items: center;">
-                <div class="text article-title" style="max-width: 420px; word-wrap: break-word; font-weight: bold; font-size: 24px; color: black; margin-top: 20px;">
-                  {{ articulo.titulo }}
-                </div>
-              </div>
-            </button>
-            
-            
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <a class="dropdown-item" href="{% url 'ver_mas' articulo.id %}">Leer mas</a>
-                  {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}
-                    <a class="dropdown-item" href="{% url 'editar_articulo' articulo.id %}">Editar</a>
-                    <form action="{% url 'eliminar_articulo' articulo.id %}" method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="dropdown-item">Eliminar</button>
-                    </form>
-                  {% endif %}
-                </li>
-            </ul>
-            </div>
-          </div>
-          
-          {% endfor %}
-        {% endif %}
+     <table class="table">        
+      <table class="table">
+      <tbody>
+          <tr>
+              <th> Titulo </th>
+              <th> Subtitulo </th>
+              <th> Fecha de creacion</th>
+              <th> Autor </th>
+              <th> Ver</th>
+              <th> Editar</th>
+              <th> Eliminar</th>
+              
+          </tr>
+        {% for articulo in articulos %}
+          <tr>
+              <td> {{articulo.titulo}}</td>
+              <td> {{articulo.subtitulo}}</td>
+              <td> {{articulo.fecha}}</td>
+              <td> {{articulo.autor}}</td>
+              <td>
+              <a href="{% url 'ver_articulo' articulo.id %}">Leer este artículo</a>    
+              </td>
+                      <td>
+                       {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}
+                       <a href="{% url 'editar_articulo' articulo.id %}">Editar</a>    
+                       {% endif %}
+                       <td>
+                        {% if user.username == articulo.autor or user.is_superuser or user.is_staff %}
+                       <a href="{% url 'eliminar_articulo' articulo.id %}"> Eliminar <i class="bi bi-trash"></i> </a>  
+                        {% endif %}
+                       </td>
+          </tr>
+      {% endfor %}
       </tbody>
-    </table>
-
+      {% endif %}
+  </table>
   </div>
 </section>
 {% endblock contenido %}

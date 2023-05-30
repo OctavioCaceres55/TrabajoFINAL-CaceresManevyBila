@@ -25,9 +25,11 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
         <a class="btn btn-success" href="{% url 'inicio'%}">Inicio</a>
+        <a class="btn btn-danger" href="{% url 'listar_articulo' %}">Articulos</a>
         {% if user.avatar %}
-        <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: -100px;">
-        {% endif %}        
+        <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" class="mr-2 rounded-circle" style="width: 30px; height: 30px; margin-left: -50px;">
+        {% endif %}      
+      
 <h1> Bienvenido a BlogBaloncesto </h1>
                 {% if user.is_authenticated %}
                 <div class="dropdown">
@@ -53,6 +55,25 @@
                 <a class="btn btn-light" href="{% url 'registro'%}">Registro</a>
                 {% endif %}
             </div>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <div style="display: inline-flex;">
+                    <span>Base de datos</span>
+                </div>   
+                </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_jugadores' %}">Jugadores</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_clubes' %}"><strong>Clubes</strong></a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'listar_entrenadores' %}">Entrenadores</a>
+                </li>
+                <li>
+            </ul>
+            <div>
         </nav>
         <section style="padding: 100px 50px;">
             

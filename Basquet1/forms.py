@@ -1,5 +1,5 @@
 from django import forms
-from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme
+from Basquet1.models import Entrenadores, Clubes, Jugadores, Aboutme, Articulo
 
 class EntrenadoresFormulario(forms.ModelForm):
     class Meta:
@@ -23,6 +23,11 @@ class AboutmeFormularios(forms.ModelForm):
         fields = ['apellido', 'nombre', 'fecha_de_nacimiento', 'lugar_de_nacimiento']
 
 
+class ArticuloFormulario(forms.ModelForm):
+    class Meta:
+        model = Articulo
+        fields = ['titulo', 'subtitulo', 'autor', 'fecha', 'cuerpo']
+    
 
 
     

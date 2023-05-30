@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.utils import timezone
 from django.shortcuts import render, redirect
+from Basquet1.forms import ArticuloFormulario
 # Vistas Entrenadores
 
 class EntrenadoresListView(ListView):
@@ -138,7 +139,7 @@ class ClubesUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('listar_clubes')
 
 
-# VIEWS ARTICULOS
+# VIEWS ABOUT ME
 
 class AboutmeListView(ListView):
     model = Aboutme
@@ -160,6 +161,8 @@ class AboutmeCreateView(CreateView):
 class AboutmeUpdateView(UpdateView):
     model = Aboutme
     success_url = reverse_lazy('detalles')
+
+# VIEWS ARTICULOS
         
 def listar_articulo(request):
     contexto = {
@@ -188,3 +191,45 @@ def buscar_articulo(request):
             context=contexto,
         )
         return http_response
+    
+@login_required
+def crear_articulo(request):
+   if request.method == "POST":
+       formulario = ArticuloFormulario(request.POST)
+
+       if formulario.is_valid():
+           data = formulario.cleaned_data  
+           titulo = data["titulo"]
+           subtitulo = data["subtitulo"]
+           cuerpo = data["cuerpo"]
+           autor = data["autor"]
+           fecha = data["fecha"]
+           articulo = Articulo(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  
+           articulo.save()  
+
+           
+           url_exitosa = reverse('listar_articulo') 
+           return redirect(url_exitosa)
+   else:  
+       formulario = ArticuloFormulario()
+   http_response = render(
+       request=request,
+       template_name='Basquet1/articulo_formulario.html',
+       context={'formulario': formulario}
+   )
+   return http_response 
+
+class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
+    model = Articulo
+    success_url = reverse_lazy('listar_articulo')
+
+class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
+    model = Articulo
+    fields = ('titulo', 'subtitulo', 'cuerpo','autor', 'fecha')
+    success_url = reverse_lazy('listar_articulo')
+
+class ArticuloDetailView(DetailView):
+    model = Articulo
+    success_url = reverse_lazy('listar_articulo')  
+
+
